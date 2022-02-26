@@ -22,10 +22,23 @@ input.addEventListener("keyup", function(event) {
 		document.getElementById("displayButton").click();
 	}
 });
+
+async function sendURL() {
+	event.preventDefault();
+	
+	const formData = new FormData();
+	
+	var user_url = document.getElementById("videoTitle");
+	await fetch("127.0.0.1:5000", {
+		method: 'POST',
+		body: formData
+	}).then(response => response.text());
+}
+
 function displayVideoTitle() {
-	var videoTitle = document.getElementById('yname').value;
+	var videoTitle = document.getElementById('yname').value
 	if (videoTitle != '') {
-		document.getElementById('vidTitle').innerHTML = '<b>Video Title: Placeholder Video Title</b>';
+		document.getElementById('vidTitle').innerHTML = '<b>Video Title: '+ videoTitle +'</b>';
 	}
 }
 </script>
@@ -34,12 +47,9 @@ function displayVideoTitle() {
     <h1>Video Summarizer</h1>
     <h2>Input a link from Youtube OR a YuJa lecture link</h2>
 	<p>Note: must have transcript/subtitles!</p>
-	<form action = "" method = "post">
-		<label for="yname"><strong>Youtube Link:</strong></label>
-		<input type="text" id="yname" name="yname"><br><br>
-		<button id = 'displayButton' onclick = displayVideoTitle() type = "submit">Submit</button>
-	</form>
-	
+	<label for="yname"><b>Link:<b></label>
+	<input type="text" id="yname" name="yname"><br><br>
+	<button id = "displayButton" onclick = "displayVideoTitle(); sendURL();" type = "submit">Submit</button>
 	
 	<h2>Based on the transcript, here is the video summary</h2>
 	<div class = "summaryBox">
