@@ -57,6 +57,7 @@ def transcripter(video_id):
         print('\n'+"Video: "+"https://www.youtube.com/watch?v="+str(video_id)+'\n'+'\n'+"Captions:")
         
         with open('transcript.txt', 'w') as f:
+            long_string = ''
             for response in responses:
                 text = response['text']
                 # print(text)
@@ -66,27 +67,35 @@ def transcripter(video_id):
                     if '.' not in text:  # conditions for adding punctuation, ignoring manual transcripts
                         if '?' not in text:
                             if ',' not in text:
-                                f.write(text + '.\n')
+                                long_string += text + '.\n'
+                                # f.write(text + '.\n')
                 
                 # after every time you add . capitalize the next letter. 
                 # and capitalize the beginning letter. 
                 
                 else:
-                    f.write(text + '\n')
+                    long_string += text + '\n'
+                    # f.write(text + '\n')
+            return long_string
+                    
     except Exception as e:
         print(e)
 
 
-def display_transcript():
-    '''
-    Displays the transcript as it is written in transcript.txt
-    '''
-    with open('transcript.txt') as open_file:
-        for line in open_file:
-            print(line.rstrip('\n'))
+# def display_transcript():
+#     '''
+#     Displays the transcript as it is written in transcript.txt
+#     '''
+#     with open('transcript.txt') as open_file:
+#         for line in open_file:
+#             print(line.rstrip('\n'))
 
 
 if __name__ == '__main__':
-    video_id = 'yYWvUoN4yt8'
-    transcripter(video_id)
+    video_id = 'SB1cxIc3qDA'
+    subtitle = transcripter(video_id)
+    # print('type: ', type(subtitle))
+    # print()
+    print(subtitle)
+    
 
