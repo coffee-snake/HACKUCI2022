@@ -33,10 +33,12 @@ function displayVideoTitle() {
 <body>
     <h1>Video Summarizer</h1>
     <h2>Input a link from Youtube OR a YuJa lecture link</h2>
-	<p>Note: must have a transcript/subtitles!</p>
-	<label for="ylink"><strong>Youtube Link:</strong></label>
-	<input type="text" id="yname" name="yname"><br><br>
-	<button id = "displayButton" onclick = "displayVideoTitle()">Submit</button>
+	<p>Note: must have transcript/subtitles!</p>
+	<form action = "" method = "post">
+		<label for="yname"><strong>Youtube Link:</strong></label>
+		<input type="text" id="yname" name="yname"><br><br>
+		<button id = 'displayButton' onclick = displayVideoTitle() type = "submit">Submit</button>
+	</form>
 	
 	
 	<h2>Based on the transcript, here is the video summary</h2>
