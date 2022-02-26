@@ -14,5 +14,4 @@ def getURLkey(URL):
         return key
 
     if not match:
-        not_match = -1
-        return not_match
+        return -1
