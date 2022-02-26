@@ -23,16 +23,22 @@ input.addEventListener("keyup", function(event) {
 	}
 });
 
-async function sendURL() {
+function sendURL() {
 	event.preventDefault();
 	
 	const formData = new FormData();
+	var videoTitle = document.getElementById('yname').value;
 	
-	var user_url = document.getElementById("videoTitle");
-	await fetch("127.0.0.1:5000", {
+	formData.append("videoTitle",videoTitle);
+
+
+	fetch("http://127.0.0.1:5000/sendURL", {
 		method: 'POST',
 		body: formData
-	}).then(response => response.text());
+	}).then(response => response.text())
+	.then(response => {
+		document.getElementById("bwvidTitle").innerHTML = response;
+	});
 }
 
 function displayVideoTitle() {
@@ -54,7 +60,7 @@ function displayVideoTitle() {
 	<h2>Based on the transcript, here is the video summary</h2>
 	<div class = "summaryBox">
 		<p id = "vidTitle"><b>Video title:</b></p>
-		<p><strong>End of transcript</strong></p>
+		<p id="bwvidTitle"><strong>End of transcript</strong></p>
 	</div>
 </body>
 
