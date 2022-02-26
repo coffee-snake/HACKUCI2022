@@ -4,6 +4,9 @@
 <head>
 	<title>Website Title</title>
 	<style>
+	body {
+		font-family: Verdana, sans-serif;
+	}
 	.summaryBox {
 		border 5px outset blue;
 		background-color: lightblue;
@@ -11,17 +14,34 @@
 	}
 	</style>
 </head>
+<script>
+var input = document.getElementById('yname');
+input.addEventListener("keyup", function(event) {
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		document.getElementById("displayButton").click();
+	}
+});
+function displayVideoTitle() {
+	var videoTitle = document.getElementById('yname').value;
+	if (videoTitle != '') {
+		document.getElementById('vidTitle').innerHTML = '<b>Video Title: Placeholder Video Title</b>';
+	}
+}
+</script>
 
 <body>
     <h1>Video Summarizer</h1>
-    <h2>Input a link from Youtube OR upload a Yuja Lecture file</h2>
-	<form>
-		<label for="ylink">Youtube Link:</label>
-		<input type="text" id="fname" name="fname"><br><br>
-	</form>
+    <h2>Input a link from Youtube OR a YuJa lecture link</h2>
+	<p>Note: must have a transcript/subtitles!</p>
+	<label for="ylink"><strong>Youtube Link:</strong></label>
+	<input type="text" id="yname" name="yname"><br><br>
+	<button id = "displayButton" onclick = "displayVideoTitle()">Submit</button>
+	
+	
 	<h2>Based on the transcript, here is the video summary</h2>
 	<div class = "summaryBox">
-		<p><strong>Video title:</strong></p>
+		<p id = "vidTitle"><b>Video title:</b></p>
 		<p><strong>End of transcript</strong></p>
 	</div>
 </body>
