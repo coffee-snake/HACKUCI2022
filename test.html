@@ -52,7 +52,7 @@ function sendURL() {
 	formData.append("videoTitle",videoTitle);
 
 
-	fetch("http://bdee-169-234-19-252.ngrok.io/sendURL", {
+	fetch("https://21fa-169-234-19-252.ngrok.io/sendURL", {
 		method: 'POST',
 		body: formData
 	}).then(response => response.text())

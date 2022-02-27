@@ -5,6 +5,7 @@ import URLKey
 import getCaptions
 import getSummary
 import getZoomText
+from random import randint
 
 
 app = Flask(__name__)
@@ -20,17 +21,20 @@ def landing_page():
     return index_html
 
 
-@app.route("/getFullString")
+@app.route("/getFullStrings")
 def hello_world():
     return f"<html><body><p>{fullString}</p></body></html>"
 
 @app.route("/sendURL",methods=["POST"])
 def sendURL():
     global fullString
+    apiKey2 = ""
+    with open("api.txt","r") as f:
+        apiKey2=f.readlines()[1]
     if("you" in request.form['videoTitle']):
         VID = URLKey.getURLkey(request.form['videoTitle'])
         print(VID)
-        if ID==-1:
+        if VID==-1:
             return "6969"
         
         fullTranscript = getCaptions.transcripter(VID)
@@ -38,19 +42,22 @@ def sendURL():
             return "6969"
         fullString = fullTranscript
 
-        apiKey2 = ""
-        with open("api.txt","r") as f:
-            apiKey2=f.readlines()[1]
 
-        shortSummary = getSummary.get_summary(apiKey2,"https://bdee-169-234-19-252.ngrok.io/getFullString")
 
+        shortSummary = getSummary.get_summary(apiKey2,f"https://21fa-169-234-19-252.ngrok.io/getFullStrings?v={randint(1,9999)}")
+       
         if(shortSummary==-1):
             return "69420"
         
         return shortSummary
+
+
+
     if("zoom" in request.form['videoTitle']):
         fullString = getZoomText.getZoomText(request.form['videoTitle'])
-        shortSummary = getSummary.get_summary(apiKey2,"https://bdee-169-234-19-252.ngrok.io/getFullString")
+        if(type(fullString)==int and fullString<0):
+            return fullString
+        shortSummary = getSummary.get_summary(apiKey2,"https://21fa-169-234-19-252.ngrok.io/getFullStrings?v={randint(1,9999)}")
 
         if(shortSummary==-1):
             return "69420"

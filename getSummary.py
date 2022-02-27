@@ -1,10 +1,9 @@
 import requests
 def get_summary(api_key, user_url):
     api_site = "https://api.smmry.com"
-    response = requests.get(api_site + '/&SM_API_KEY=' + api_key + '&SM_URL=' + user_url)
+    response = requests.get(api_site + '/&SM_API_KEY=' + api_key +'&SM_IGNORE_LENGTH'+ '&SM_URL=' + user_url )
     sm_response = response.json()
     print(sm_response)
-    print(api_key)
     if('sm_api_error' in sm_response):
         return -1
     
