@@ -26,6 +26,7 @@ def hello_world():
 
 @app.route("/sendURL",methods=["POST"])
 def sendURL():
+    global fullString
     if("you" in request.form['videoTitle']):
         VID = URLKey.getURLkey(request.form['videoTitle'])
         print(VID)
@@ -35,9 +36,6 @@ def sendURL():
         fullTranscript = getCaptions.transcripter(VID)
         if(fullTranscript==-1):
             return "6969"
-        
-
-        global fullString
         fullString = fullTranscript
 
         apiKey2 = ""
@@ -51,7 +49,13 @@ def sendURL():
         
         return shortSummary
     if("zoom" in request.form['videoTitle']):
-        getZoomText.getZoomText(request.form['videoTitle'])
+        fullString = getZoomText.getZoomText(request.form['videoTitle'])
+        shortSummary = getSummary.get_summary(apiKey2,"https://bdee-169-234-19-252.ngrok.io/getFullString")
+
+        if(shortSummary==-1):
+            return "69420"
+        return shortSummary
+
     return "6969"
 
 
