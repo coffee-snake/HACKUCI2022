@@ -65,8 +65,16 @@ def sendURL():
         return shortSummary
 
     if("yuja" in request.form['videoTitle']):
-        fullString = getYujaText(request.form['videoTitle'])
-        shortSummary = getSummary.get_summary(apiKey2,"https://21fa-169-234-19-252.ngrok.io/getFullStrings?v={randint(1,9999)}")
+        try:
+            fakelist = request.form['videoTitle'].split("***")
+            username = fakelist[0]
+            password = fakelist[1]
+            onlyURL = fakelist[2]
+            fullString = getYujaText(onlyURL,username,password)
+            shortSummary = getSummary.get_summary(apiKey2,"https://21fa-169-234-19-252.ngrok.io/getFullStrings?v={randint(1,9999)}")
+        except Exception as e:
+            print(e)
+            return -1
 
         return shortSummary
     return "6969"
