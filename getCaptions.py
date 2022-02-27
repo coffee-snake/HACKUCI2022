@@ -23,9 +23,11 @@ if the video
 
 
 # # attempt to force auto-translating every video to english
+# video_id = 'UyFYgeE32f0'
 # transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
 # transcript = transcript_list.find_transcript(['en'])
 # translated_transcript = transcript.translate('en')
+# print('translated transcript test')
 # print(translated_transcript.fetch())
 
 
@@ -53,30 +55,38 @@ def transcripter(video_id):
         still work, but if the video's auto-translation is by default Russian, 
         say because its a video related to Russia, then
         it will return an error, even if there IS an auto-translation to English.
+        
+        It also doesnt exactly copy English manual translations, only auto-translations.
         '''
+        
         print('\n'+"Video: "+"https://www.youtube.com/watch?v="+str(video_id)+'\n'+'\n'+"Captions:")
         
-        with open('transcript.txt', 'w') as f:
-            long_string = ''
-            for response in responses:
-                text = response['text']
+        # with open('transcript.txt', 'w') as f:
+        long_string = ''
+        flag = False
+        responses[0]['text'] = responses[0]['text'].capitalize()  # first sentence
+        
+        for response in responses:
+            text = response['text']
+            # print(text)
+            
+            if flag:
+                text = text.capitalize()
+                flag = False
+            
+            if len(text) < 30:
                 # print(text)
-                
-                if len(text) < 30:
-                    # print(text)
-                    if '.' not in text:  # conditions for adding punctuation, ignoring manual transcripts
-                        if '?' not in text:
-                            if ',' not in text:
-                                long_string += text + '.\n'
-                                # f.write(text + '.\n')
-                
-                # after every time you add . capitalize the next letter. 
-                # and capitalize the beginning letter. 
-                
-                else:
-                    long_string += text + '\n'
-                    # f.write(text + '\n')
-            return long_string
+                if '.' not in text:  # conditions for adding punctuation, ignoring manual transcripts
+                    if '?' not in text:
+                        if ',' not in text:
+                            long_string += text + '.\n'
+                            flag = True  # need to capitalize after every period.
+                            # f.write(text + '.\n')
+            
+            else:
+                long_string += text + '\n'
+                # f.write(text + '\n')
+        return long_string
                     
     except Exception as e:
         print(e)
