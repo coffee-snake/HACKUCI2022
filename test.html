@@ -52,11 +52,12 @@ function sendURL() {
 	formData.append("videoTitle",videoTitle);
 
 
-	fetch("http://127.0.0.1:5000/sendURL", {
+	fetch("http://bdee-169-234-19-252.ngrok.io/sendURL", {
 		method: 'POST',
 		body: formData
 	}).then(response => response.text())
 	.then(response => {
+		console.log(response)
 		if (response !== "6969") {
 			document.getElementById("bwvidTitle").innerHTML = response;
 		}
