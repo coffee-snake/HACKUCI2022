@@ -4,6 +4,26 @@
 <head>
 	<title>Website Title</title>
 	<style>
+	h1 {text-align: center;}
+	h2 {text-align: center;}
+	p {text-align: center;}
+	div {text-align: center;}
+	label {
+		display:block;
+		text-align:center;
+		padding-bottom:12px;
+	}
+	input[type="text"] {
+             display: block;
+             margin : 0 auto;
+    }
+	.vertical-center {
+			margin: 0;
+			position: relative;
+			top: 50%;
+			-ms-transform: translateY(-50%);
+			transform: translateY(-50%);
+	}
 	body {
 		font-family: Verdana, sans-serif;
 	}
@@ -37,14 +57,19 @@ function sendURL() {
 		body: formData
 	}).then(response => response.text())
 	.then(response => {
-		document.getElementById("bwvidTitle").innerHTML = response;
+		if (response !== "6969") {
+			document.getElementById("bwvidTitle").innerHTML = response;
+		}
+		else {
+			document.getElementById("hiddenInvalid").innerHTML = "This is an invalid link! Please enter another link."
+		}
 	});
 }
 
 function displayVideoTitle() {
 	var videoTitle = document.getElementById('yname').value
 	if (videoTitle != '') {
-		document.getElementById('vidTitle').innerHTML = '<b>Video Title: '+ videoTitle +'</b>';
+		document.getElementById('vidTitle').innerHTML = '<b>Video link: '+ videoTitle +'</b>';
 	}
 }
 </script>
@@ -53,10 +78,12 @@ function displayVideoTitle() {
     <h1>Video Summarizer</h1>
     <h2>Input a link from Youtube OR a YuJa lecture link</h2>
 	<p>Note: must have transcript/subtitles!</p>
-	<label for="yname"><b>Link:<b></label>
-	<input type="text" id="yname" name="yname"><br><br>
-	<button id = "displayButton" onclick = "displayVideoTitle(); sendURL();" type = "submit">Submit</button>
-	
+	<label for="yname" style = "font-size: 24px;"><b>Link:<b></label>
+	<input type="text" id="yname" name="yname" style="height:50px; width:580px; font-size:24px;"><br><br>
+	<p style = "color:red" id = "hiddenInvalid"></p>
+	<div class = "vertical-center">
+		<button id = "displayButton" onclick = "displayVideoTitle(); sendURL();" type = "submit">Submit</button>
+	</div>
 	<h2>Based on the transcript, here is the video summary</h2>
 	<div class = "summaryBox">
 		<p id = "vidTitle"><b>Video link:</b></p>
