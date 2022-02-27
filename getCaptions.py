@@ -90,6 +90,7 @@ def transcripter(video_id):
                     
     except Exception as e:
         print(e)
+        return -1
 
 
 # def display_transcript():
