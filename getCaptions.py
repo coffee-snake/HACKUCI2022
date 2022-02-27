@@ -14,23 +14,6 @@ from apiclient.discovery import build
 from youtube_transcript_api import YouTubeTranscriptApi
 
 
-'''
-Test Scenarios:
-if the video has subtitles disabled, transcript.txt wont change.
-if the video is by default English - (not auto-translated), then ofc it works.
-if the video 
-'''
-
-
-# # attempt to force auto-translating every video to english
-# video_id = 'UyFYgeE32f0'
-# transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-# transcript = transcript_list.find_transcript(['en'])
-# translated_transcript = transcript.translate('en')
-# print('translated transcript test')
-# print(translated_transcript.fetch())
-
-
 def getKey():
     '''
     Accesses api.txt to open the file with the api key
@@ -42,21 +25,22 @@ def getKey():
 
 def transcripter(video_id):
     '''
-    Transcripts the video into transcript.txt given the video_id
+    Transcripts the video, return a string or maybe transcript.txt given the video_id
     '''
     youtube = build('youtube', 'v3', developerKey=getKey())
     try:
         responses = YouTubeTranscriptApi.get_transcript(
-            video_id, languages=['en'])
+            video_id, languages=['en', 'en-CA'])
+        print(responses)
+        
         '''
-        Note:- If captions are disabled or language is not EN(English) for a video you will get an Exception Message.
+        Note: If captions are disabled or language is not EN(English) for a video you may get an Exception Message.
         "No transcripts were found for any of the requested language codes: ['en']"
         meaning, if auto-translation is by default English, then it will
         still work, but if the video's auto-translation is by default Russian, 
-        say because its a video related to Russia, then
-        it will return an error, even if there IS an auto-translation to English.
+        it will return an error, even if there is an auto-translation to English.
         
-        It also doesnt exactly copy English manual translations, only auto-translations.
+        Sometimes with videos with manual subtitles, it will still return the auto-translated version, and sometimes not. 
         '''
         
         print('\n'+"Video: "+"https://www.youtube.com/watch?v="+str(video_id)+'\n'+'\n'+"Captions:")
@@ -75,7 +59,6 @@ def transcripter(video_id):
                 flag = False
             
             if len(text) < 30:
-                # print(text)
                 if '.' not in text:  # conditions for adding punctuation, ignoring manual transcripts
                     if '?' not in text:
                         if ',' not in text:
@@ -103,7 +86,7 @@ def transcripter(video_id):
 
 
 if __name__ == '__main__':
-    video_id = 'SB1cxIc3qDA'
+    video_id = 'xICkLB3vAeU'
     subtitle = transcripter(video_id)
     # print('type: ', type(subtitle))
     # print()

@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
 import time
 
 # Function to get the Text from Zoom
@@ -14,6 +13,8 @@ def getZoomText(url):
     try:
         driver.get(url)
         time.sleep(10)
+
+        time.sleep(10.0)
 
         # Find transcript by class name and get text without the 1st index name
         transcript = driver.find_element(By.CLASS_NAME, "transcript-list")
@@ -40,8 +41,9 @@ def getZoomText(url):
         return allstring
 
     # Return -1 if URL does not work or error occur
-    except NoSuchElementException:
-        return -2
-    except Exception as e:
-        print(e)
+    except:
         return -1
+
+if __name__ == "__main__":
+    print(getZoomText("https://uci.zoom.us/rec/play/KFfHRIdPsXYMWjgv7oT1Gbvmbc4RALmDQfs6D_rvF5LxRW20ELKojuden0Wy2Fz-2bC9t3H2C0GRhTke.ck4FzmcgKVlTddsJ?continueMode=true&_x_zm_rtaid=_Xkj-VPjTh2QoXyVbub8sA.1645931160216.deaf91508c7d84b15dd031ceff038f31&_x_zm_rhtaid=101"))
+
