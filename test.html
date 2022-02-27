@@ -57,7 +57,7 @@ function sendURL() {
 		body: formData
 	}).then(response => response.text())
 	.then(response => {
-		if (response.text() !== "6969") {
+		if (response !== "6969") {
 			document.getElementById("bwvidTitle").innerHTML = response;
 		}
 		else {

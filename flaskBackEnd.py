@@ -17,13 +17,16 @@ def hello_world():
 @app.route("/sendURL",methods=["POST"])
 def sendURL():
     VID = URLKey.getURLkey(request.form['videoTitle'])
-    if VID==1:
+    if VID==-1:
         return "6969"
-    try:
-        fullTranscript = getCaptions.transcripter(VID)
-        global fullString
-        fullString = fullTranscript
-        return fullTranscript
-    except Exception as e:
+    
+    fullTranscript = getCaptions.transcripter(VID)
+    if(fullTranscript==-1):
         return "6969"
+    
+
+    global fullString
+    fullString = fullTranscript
+    return fullTranscript
+
 
