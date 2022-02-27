@@ -6,6 +6,7 @@ import getCaptions
 import getSummary
 import getZoomText
 from random import randint
+from tryyuja import getYujaText
 
 
 app = Flask(__name__)
@@ -63,6 +64,11 @@ def sendURL():
             return "69420"
         return shortSummary
 
+    if("yuja" in request.form['videoTitle']):
+        fullString = getYujaText(request.form['videoTitle'])
+        shortSummary = getSummary.get_summary(apiKey2,"https://21fa-169-234-19-252.ngrok.io/getFullStrings?v={randint(1,9999)}")
+
+        return shortSummary
     return "6969"
 
 

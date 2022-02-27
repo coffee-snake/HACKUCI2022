@@ -18,7 +18,7 @@ def getZoomText(url):
 
         # Find transcript by class name and get text without the 1st index name
         transcript = driver.find_element(By.CLASS_NAME, "transcript-list")
-       
+        driver.maximize_window()
         text = transcript.text
         print(text)
         text = text.split('\n')
@@ -37,7 +37,7 @@ def getZoomText(url):
                     toApp = False
 
         # Return full script and close driver
-        #driver.close()
+        driver.close()
         return allstring
 
     # Return -1 if URL does not work or error occur
