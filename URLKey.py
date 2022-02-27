@@ -9,6 +9,8 @@ def getURLkey(URL):
     if match:
         start = youtube_url.find("v=") + len("v=")
         end = youtube_url.find("&")
+        if end == -1:
+            end = len(youtube_url)
         key = youtube_url[start:end]
 
         return key

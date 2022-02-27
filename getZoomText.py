@@ -6,7 +6,7 @@ def getZoomText(url):
 
     # URL into str and start driver
     url = str(url)
-    driver = webdriver.Chrome(executable_path="D:\\chromedriver_win32\\chromedriver.exe")
+    driver = webdriver.Chrome(executable_path=".\\chromedriver_win32\\chromedriver.exe")
 
     # If URL works, scrap through the transcript and return a string of context
     try:

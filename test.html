@@ -52,16 +52,19 @@ function sendURL() {
 	formData.append("videoTitle",videoTitle);
 
 
-	fetch("http://127.0.0.1:5000/sendURL", {
+	fetch("http://bdee-169-234-19-252.ngrok.io/sendURL", {
 		method: 'POST',
 		body: formData
 	}).then(response => response.text())
 	.then(response => {
-		if (response !== "6969") {
-			document.getElementById("bwvidTitle").innerHTML = response;
-		}
-		else {
-			document.getElementById("hiddenInvalid").innerHTML = "This is an invalid link! Please enter another link."
+		switch (response) { 
+			case "6969":
+				document.getElementById("hiddenInvalid").innerHTML = "This is an invalid link! Please enter another link.";
+				break;
+			case "69420":
+				document.getElementById("bwvidTitle").innerHTML = "There was a problem with the SMMRY API on your link.";
+				break;
+			default: document.getElementById("bwvidTitle").innerHTML = response;
 		}
 	});
 }
@@ -80,7 +83,7 @@ function displayVideoTitle() {
 	<p>Note: must have transcript/subtitles!</p>
 	<label for="yname" style = "font-size: 24px;"><b>Link:<b></label>
 	<input type="text" id="yname" name="yname" style="height:50px; width:580px; font-size:24px;"><br><br>
-	<p style = "color:red" id = "hiddenInvalid"></p>
+	<p style = "color:red" id = "hiddenInvalid" style="padding-top: -10px;"></p>
 	<div class = "vertical-center">
 		<button id = "displayButton" onclick = "displayVideoTitle(); sendURL();" type = "submit">Submit</button>
 	</div>
